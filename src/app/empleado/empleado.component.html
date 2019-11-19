@@ -1,0 +1,28 @@
+<div class="card my-5">
+    <div class="card-body">
+      <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Dni</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Sexo</th>
+            <th scope="col">Categoria</th>
+            <th scope="col">Años</th>
+            <th scope="col">Borrar</th>
+            <th scope="col">Actualizar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let empleado of empleadosList">
+            <td>{{ empleado.dni }}</td>
+            <td>{{ empleado.nombre }}</td>
+            <td>{{ empleado.sexo }}</td>
+            <td>{{ empleado.categoria }}</td>
+            <td>{{ empleado.anyos }}</td>
+            <td><button (click)="deleteEmpleado(empleado.dni)" class="btn btn-danger">Borrar</button></td>
+            <td><a [routerLink]="['/update', empleado.dni]" class="btn btn-info">Actualizar</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
