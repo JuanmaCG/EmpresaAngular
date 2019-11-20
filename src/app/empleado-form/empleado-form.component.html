@@ -3,7 +3,8 @@
       <form (ngSubmit)="onSubmit()" #empForm="ngForm">
         <div class="form-group">
           <label for="dni">Dni</label>
-          <input type="text" [(ngModel)]="empleado.dni" class="form-control" id="dni" name="dni" placeholder="Introduce tu dni" required  pattern="(([X-Z]{1})([-]?)(\d{7})([-]?)([A-Z]{1}))|((\d{8})([-]?)([A-Z]{1}))" #dni="ngModel">
+          <input type="text" [(ngModel)]="empleado.dni" class="form-control" id="dni" name="dni" placeholder="Introduce tu dni" required  pattern="(^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKET]$)|(^[XYZ][0-9]{7}[TRWAGMYFPDXBNJZSQVHLCKET]$)
+          " #dni="ngModel">
           
           <!-- Validacion dni -->
           <div *ngIf="dni.invalid && (dni.dirty || dni.touched)" class="alert alert-danger">
@@ -44,15 +45,28 @@
 
         <div class="form-group">
             <label for="categoria">Categoria</label>
-            <input type="number" [(ngModel)]="empleado.categoria"  class="form-control" id="categoria" name="categoria" placeholder="Introduce tu categoria" required min="1" max=10 #categoria="ngModel">
+            <input type="number" [(ngModel)]="empleado.categoria"  class="form-control" id="categoria" name="categoria" placeholder="Introduce tu categoria" required min="1" max=10 pattern="^(?:[1-9]|0[1-9]|10)$" #categoria="ngModel">
         </div>
 
+        <div *ngIf="categoria.invalid && (categoria.dirty || categoria.touched)" class="alert alert-danger"> 
+            <div *ngIf="categoria.errors.required">Categoria Requerida</div>
+            <div *ngIf="categoria.errors.pattern">La categoria solo puede ser un numero entre 1 - 10</div>
+        </div>
+        <div *ngIf="categoria.valid">
+            <div class="alert alert-success">Categoria valida</div>
+        </div>
 
         <div class="form-group">
             <label for="anyos">Años</label>
-            <input type="number" [(ngModel)]="empleado.anyos"  class="form-control" id="anyos" name="anyos" placeholder="Introduce tu anyos" required min="1" #anyos="ngModel">
+            <input type="number" [(ngModel)]="empleado.anyos"  class="form-control" id="anyos" name="anyos" placeholder="Introduce tu anyos" required min="1" pattern="[0-9]{0,2}" #anyos="ngModel">
         </div> 
-          
+        <div *ngIf="anyos.invalid && (anyos.dirty || anyos.touched)" class="alert alert-danger"> 
+            <div *ngIf="anyos.errors.required">Años Requeridos</div>
+            <div *ngIf="anyos.errors.pattern">Los años solo pueden ser numeros positivos</div>
+        </div>
+        <div *ngIf="anyos.valid">
+            <div class="alert alert-success">Años valido</div>
+        </div>
         
         <button type="submit" class="btn btn-info" [disabled]="!empForm.form.valid" >Submit</button>
       </form>
