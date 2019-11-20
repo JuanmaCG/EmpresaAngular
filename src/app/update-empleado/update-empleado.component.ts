@@ -23,7 +23,6 @@ export class UpdateEmpleadoComponent implements OnInit {
     
     this.empService.findByDni(this.dni)
       .subscribe(data => {
-        console.log(data)
         this.empleado = data;
       }, error => console.log(error));
   }

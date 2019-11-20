@@ -1,10 +1,17 @@
 <div class="card my-5">
     <div class="card-body">
-      <form (ngSubmit)="onSubmit()">
+      <form (ngSubmit)="onSubmit()" #empForm="ngForm">
         <div class="form-group">
           <label for="dni">Dni</label>
-          <input type="text" [(ngModel)]="empleado.dni" class="form-control" id="dni" name="dni" placeholder="Introduce tu dni" required >
-        </div>
+          <input type="text" [(ngModel)]="empleado.dni" class="form-control" id="dni" name="dni" placeholder="Introduce tu dni" required maxlength="9" pattern="(([X-Z]{1})([-]?)(\d{7})([-]?)([A-Z]{1}))|((\d{8})([-]?)([A-Z]{1}))" #dni="ngModel">
+          
+          <!-- Validacion dni -->
+          <div *ngIf="dni.invalid && (dni.dirty || dni.touched)" class="alert alert-danger">
+              <div *ngIf="dni.errors.required">Dni es obligatorio</div>
+              <div *ngIf="dni.errors.maxlength">El dni debe tener 9 caracteres como maximo</div>
+              <div *ngIf="dni.errors.pattern">El dni debe ser un dni valido</div>
+            </div>
+          </div>
         
         <div class="form-group">
           <label for="nombre">Nombre</label>
@@ -12,17 +19,32 @@
         </div>
         <div class="form-group">
             <label for="sexo">Sexo</label>
-            <input type="text" [(ngModel)]="empleado.sexo"  class="form-control" id="sexo" name="sexo" placeholder="Introduce tu sexo" required >
+            <input type="text" [(ngModel)]="empleado.sexo"  class="form-control" id="sexo" name="sexo" placeholder="Introduce tu sexo" required maxlength="1" pattern="[MF]{1}" #sexo="ngModel">
         </div>
+
+        <!-- Comprobacion de sexo -->
+
+            <div *ngIf="sexo.invalid && (sexo.dirty || sexo.touched)" class="alert alert-danger"> 
+              <div *ngIf="sexo.errors.required">Sexo Requerido</div>
+              <div *ngIf="sexo.errors.pattern">El sexo solo puede ser M / F</div>
+            </div>
+
+        <!--   -->
+
+
         <div class="form-group">
             <label for="categoria">Categoria</label>
-            <input type="number" [(ngModel)]="empleado.categoria"  class="form-control" id="categoria" name="categoria" placeholder="Introduce tu categoria" required >
+            <input type="number" [(ngModel)]="empleado.categoria"  class="form-control" id="categoria" name="categoria" placeholder="Introduce tu categoria" required min="1" max=10 #categoria="ngModel">
         </div>
+
+
         <div class="form-group">
             <label for="anyos">Años</label>
-            <input type="number" [(ngModel)]="empleado.anyos"  class="form-control" id="anyos" name="anyos" placeholder="Introduce tu anyos" required >
-        </div>
-        <button type="submit" class="btn btn-info">Submit</button>
+            <input type="number" [(ngModel)]="empleado.anyos"  class="form-control" id="anyos" name="anyos" placeholder="Introduce tu anyos" required min="1" #anyos="ngModel">
+        </div> 
+          
+        
+        <button type="submit" class="btn btn-info" [disabled]="!empForm.form.valid" >Submit</button>
       </form>
     </div>
   </div>
