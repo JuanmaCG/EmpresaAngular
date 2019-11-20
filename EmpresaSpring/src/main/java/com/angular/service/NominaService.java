@@ -11,6 +11,7 @@ import com.angular.entities.Nomina;
 public interface NominaService {
 	
 	Nomina updateNomina(Empleado emp);
-	Nomina findById(String dni) throws Exception;
+	Nomina findById(String dni);
 	List<Nomina> getAll();
+	public void deleteNominaByDni(String dni);
 }

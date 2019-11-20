@@ -42,8 +42,8 @@ public class NominaServiceImp implements NominaService{
 	}
 
 	@Override
-	public Nomina findById(String dni) throws Exception {
-		Nomina nomina = nominaRepo.findById(dni).orElseThrow(() -> new Exception("No se ha encontrado la nomina"));
+	public Nomina findById(String dni) {
+		Nomina nomina = nominaRepo.findById(dni).orElseThrow(() -> new ResourceNotFoundException("No se ha encontrado la nomina"));
 		return nomina;
 		
 	}
@@ -52,6 +52,12 @@ public class NominaServiceImp implements NominaService{
 	public List<Nomina> getAll() {
 		// TODO Auto-generated method stub
 		return nominaRepo.findAll();
+	}
+
+	@Override
+	public void deleteNominaByDni(String dni) {
+		// TODO Auto-generated method stub
+		nominaRepo.delete(findById(dni));
 	}
 
 	

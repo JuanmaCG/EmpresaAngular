@@ -50,10 +50,12 @@ public class EmpleadoController {
 	@DeleteMapping("/empleados/{dni}")
 	public void deleteEmp(@PathVariable String dni) {
 		empService.deleteEmpleadoByDni(dni);
+		nominaService.deleteNominaByDni(dni);
 	}
 	
 	@PatchMapping("/empleados/{dni}")
-	public Empleado updateEmp(@RequestBody Empleado empleado) {
-		return empService.updateEmpleado(empleado);
+	public void updateEmp(@RequestBody Empleado empleado) {
+		empService.updateEmpleado(empleado);
+		nominaService.updateNomina(empleado);
 	}
 }
