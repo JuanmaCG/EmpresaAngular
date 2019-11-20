@@ -3,20 +3,28 @@
       <form (ngSubmit)="onSubmit()" #empForm="ngForm">
         <div class="form-group">
           <label for="dni">Dni</label>
-          <input type="text" [(ngModel)]="empleado.dni" class="form-control" id="dni" name="dni" placeholder="Introduce tu dni" required maxlength="9" pattern="(([X-Z]{1})([-]?)(\d{7})([-]?)([A-Z]{1}))|((\d{8})([-]?)([A-Z]{1}))" #dni="ngModel">
+          <input type="text" [(ngModel)]="empleado.dni" class="form-control" id="dni" name="dni" placeholder="Introduce tu dni" required  pattern="(([X-Z]{1})([-]?)(\d{7})([-]?)([A-Z]{1}))|((\d{8})([-]?)([A-Z]{1}))" #dni="ngModel">
           
           <!-- Validacion dni -->
           <div *ngIf="dni.invalid && (dni.dirty || dni.touched)" class="alert alert-danger">
               <div *ngIf="dni.errors.required">Dni es obligatorio</div>
-              <div *ngIf="dni.errors.maxlength">El dni debe tener 9 caracteres como maximo</div>
               <div *ngIf="dni.errors.pattern">El dni debe ser un dni valido</div>
             </div>
           </div>
+          <div *ngIf="dni.valid">
+              <div class="alert alert-success">Dni valido</div>
+          </div>
+          
         
         <div class="form-group">
           <label for="nombre">Nombre</label>
-          <input type="text" [(ngModel)]="empleado.nombre"  class="form-control" id="nombre" name="nombre" placeholder="Introduce tu nombre" required >
+          <input type="text" [(ngModel)]="empleado.nombre"  class="form-control" id="nombre" name="nombre" placeholder="Introduce tu nombre" required #nombre="ngModel">
         </div>
+
+        <div *ngIf="nombre.valid">
+            <div class="alert alert-success">Nombre valido</div>
+        </div>
+
         <div class="form-group">
             <label for="sexo">Sexo</label>
             <input type="text" [(ngModel)]="empleado.sexo"  class="form-control" id="sexo" name="sexo" placeholder="Introduce tu sexo" required maxlength="1" pattern="[MF]{1}" #sexo="ngModel">
@@ -28,7 +36,9 @@
               <div *ngIf="sexo.errors.required">Sexo Requerido</div>
               <div *ngIf="sexo.errors.pattern">El sexo solo puede ser M / F</div>
             </div>
-
+            <div *ngIf="sexo.valid">
+                <div class="alert alert-success">Sexo valido</div>
+            </div>
         <!--   -->
 
 
